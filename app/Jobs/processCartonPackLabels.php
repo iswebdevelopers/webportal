@@ -9,8 +9,10 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Config;
+use GuzzleHttp\Client;
 
-class processCartonPackLabels implements ShouldQueue
+class processCartonLabels implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -21,6 +23,7 @@ class processCartonPackLabels implements ShouldQueue
      */
     public function __construct(Carton $carton, User $user)
     {
+        $this->client = new Client(['base_uri' => config('services.api.url')]);
         $this->carton = $carton;
         $this->user = $user;
     }
