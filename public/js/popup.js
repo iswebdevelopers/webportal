@@ -14,7 +14,7 @@ $(document).ready(function(){
         $.ajax({
             method: "POST",
             url: "/portal/user/recovery?token=" + token,
-            data        : $(this).serializeArray(),
+            data: $(this).serializeArray(),
         success: function( data ) {
             if(data.status == 'success'){
               var html = "<div class='alert alert-success'><ul>";  
@@ -31,7 +31,7 @@ $(document).ready(function(){
             $(".fancybox-slide div #page-inner .row .col-md-6").prepend(html);
           },
           error: function() { 
-            alert("Something has gone wrong. Please refresh."); 
+            alert("Something has gone wrong. Please try again."); 
           }
         });
     });

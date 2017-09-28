@@ -18,7 +18,7 @@ Route::get('portal/', function () {
     return redirect('/portal/dashboard');
 });
 
-Route::group(['prefix' => 'portal','middleware' => 'auth.portal'], function () {
+Route::group(['prefix' => 'portal','middleware' => 'api'], function () {
     Route::get('/dashboard', 'HomeController@dashboard');
     
     Route::get('/setting', 'HomeController@setting');

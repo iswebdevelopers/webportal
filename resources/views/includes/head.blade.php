@@ -15,6 +15,8 @@
     <link href="{{ asset('css/font-awesome.css') }}" rel="stylesheet" />
     <link href="{{ asset('js/jquery-ui-1.12.1.custom/jquery-ui.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/jquery.fancybox.min.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.js"></script>
     <style>
   .ui-autocomplete-loading {
     background: white url({{ asset('js/jquery-ui-1.12.1.custom/images/ui-anim_basic_16x16.gif') }} right center no-repeat;

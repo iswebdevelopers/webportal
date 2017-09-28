@@ -20,14 +20,14 @@
             <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
             <input name="type" class="form-control" type="hidden" value="sticky">
             @foreach ($orderdetails['orderdetails'] as $order)
-                <input name="data[{{$order['item']}}][qty]" class="form-control" type="hidden" value="{{$order['qty']}}">
+                <tr>
+                	<input name="data[{{$order['item']}}][qty]" class="form-control" type="hidden" value="{{$order['qty']}}">
                 <input name="data[{{$order['item']}}][location_type]" class="form-control" type="hidden" value="{{$order['location_type']}}">
                 <input name="data[{{$order['item']}}][location]" class="form-control" type="hidden" value="{{$order['location']}}">
                 <input name="data[{{$order['item']}}][item]" class="form-control" type="hidden" value="{{$order['item']}}">
                 <input name="data[{{$order['item']}}][order_no]" class="form-control" type="hidden" value="{{$order['order_no']}}">
                 <input name="data[{{$order['item']}}][retail]" class="form-control" type="hidden" value="{{$order['retail']}}">
                     <input name="data[{{$order['item']}}][country]" class="form-control" type="hidden" value="{{$order['country']}}">
-                <tr>
                     <td>{{$order['order_no']}}</td>
                     <td>{{$order['style']}}</td>
                     <td>{{$order['item']}}</td>
@@ -35,8 +35,12 @@
                     <td><input name="data[{{$order['item']}}][over_print_qty]" class="form-control" type="number" required value="0"></td>
                     <td>
                         <select class="form-control" name="data[{{$order['item']}}][sort_order_type]">
-                            <option value="PL" <?php if((empty($input['sort_order_type'])) ? '' : $input['sort_order_type'] == 'PL'){echo "selected";}?>>Pack Then Loose</option>
-                            <option value="L" <?php if((empty($input['sort_order_type'])) ? '' : $input['sort_order_type'] == 'L'){echo "selected";}?>>Loose</option>
+                            <option value="PL" <?php if ((empty($input['sort_order_type'])) ? '' : $input['sort_order_type'] == 'PL') {
+    echo "selected";
+}?>>Pack Then Loose</option>
+                            <option value="L" <?php if ((empty($input['sort_order_type'])) ? '' : $input['sort_order_type'] == 'L') {
+    echo "selected";
+}?>>Loose</option>
                         </select>
                     </td>
                     <!-- <td>

@@ -15,11 +15,11 @@
                 @endforeach
         </div>
     @endif
-
     <!--labels Options-->                
     <div class="col-md-12 col-sm-12">
         <div class="panel panel-default">
             <div class="panel-body">
+            	@include('partials._flash')
                 <ul class="nav nav-pills">  
                 <!-- Admin and Warehouse restricted -->
                 @if(($user['roles'] == 'administrator') || ($user['roles'] == 'warehouse')) 

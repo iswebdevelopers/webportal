@@ -1,14 +1,28 @@
 @if(!empty($data['cartonloose']))
-<?php $i=0; ?>
-<div id="page-sheet">
 	@foreach ($data['cartonloose'] as $cartonloose)
 		@foreach ($cartonloose['carton'] as $carton)
-		<?php $i++; ?>
-			@if(($i == 5) || ($loop->parent->first))
-				<div class="packlabel">
-			@else
-				<div class="packlabel">
-			@endif
+				^XA
+		^FX Top section.
+		^CF0,70
+		^FO90,50^FDOrder No: {{$cartonloose['ordernumber']}}^FS
+		^FO90,120^FDStyle No: {{$cartonloose['style']}}^FS
+		^FO90,180^FDSize: {{$cartonloose['size']}}^FS
+		^FO90,250^FDColour: {{$cartonloose['colour']}}^FS
+		^FO90,320^FDQty: {{$cartonloose['cartonquantity']}}^FS
+
+		^FX Second.
+		^CFA,30
+		^FO50,400^FDItem No  {{$cartonloose['itemnumber']}}^FS
+		^FO50,450^FDDescription   {{$cartonloose['description']}}^FS
+
+		^FX Third section with barcode.
+		^BY3.4,2,230
+		^FO50,550^BC^FD{{$carton['number']}}^FS
+
+		^FX Fourth section (the two boxes on the bottom).
+		^BY2,2,230
+		^FO50,850^BC^FD{{$cartonloose['productindicator']}} 1^FS
+		^XZ
 					<div class="first-row">
 						<span class="title">
 							<p>Order No  {{$cartonloose['ordernumber']}}</p>
