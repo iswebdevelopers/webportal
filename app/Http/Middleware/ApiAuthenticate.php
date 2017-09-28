@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Config;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException as Exception;
 
 /**
 * ApiAuthenticatecheck as route middleware
@@ -32,6 +33,8 @@ class ApiAuthenticate
                     if (!$result['authuser']) {
                         return redirect('login');
                     }
+                } else {
+                    return redirect('login');
                 }
             } catch (Exception $e) {
                 return redirect('login');
@@ -39,7 +42,8 @@ class ApiAuthenticate
         } else {
             return redirect('login');
         }
-        
+        $request->session()->put('userid', $result['authuser']['id']);
+        $request->session()->put('username', $result['authuser']['name']);
         \View::share('user', $result['authuser']);
         return $next($request);
     }
