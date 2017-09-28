@@ -29,8 +29,20 @@ $( function() {
     });
 
   $("button#btn_delete").on('click',function(){
-    alert('removing');
-    $(this).parent().parent().remove();
+  	var btn = $(this);
+    $.confirm({
+	    title: 'Are you sure?',
+	    buttons: {
+	        confirm: function () {
+	        	console.log(btn);
+	            btn.parent().parent().remove();
+	        },
+	        cancel: function () {
+	            
+	        }
+    	}
+	});
+    
   });
 
   $("div", "div#extra-fields").hide();
