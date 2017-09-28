@@ -5,10 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Setting;
-use Config;
-use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException as Exception;
 
-class SupplierController extends Controller
+class SupplierController extends FrontController
 {
     public function __construct()
     {
@@ -19,7 +18,9 @@ class SupplierController extends Controller
     {
         try {
             $token = $request->session()->get('token');
-            $response = $this->client->request('GET', 'suppliers', ['query' => ['token' => $token]]);
+            $page = $request->page ? $request->page : 1;
+            
+            $response = $this->client->request('GET', 'suppliers', ['query' => ['token' => $token, 'page'=>$page]]);
                 
             if ($response->getstatusCode() == 200) {
                 $result = json_decode($response->getBody()->getContents(), true);
@@ -27,6 +28,7 @@ class SupplierController extends Controller
         } catch (InternalHttpException $e) {
             $error = json_decode($e->getResponse()->getContent(), true);
             $errors = [$error['data']['message']];
+            
             return view('supplier.list')->withErrors($errors)->withTitle('suppliers');
         }
         return view('supplier.list', ['suppliers' => $result['data']])->withTitle('suppliers');
@@ -36,6 +38,7 @@ class SupplierController extends Controller
     {
         try {
             $token = $request->session()->get('token');
+            
             $response = $this->client->request('GET', 'supplier/search/'.$request->term, ['query' => ['token' => $token]]);
                 
             if ($response->getstatusCode() == 200) {
@@ -44,6 +47,7 @@ class SupplierController extends Controller
         } catch (InternalHttpException $e) {
             $error = json_decode($e->getResponse()->getContent(), true);
             $errors = [$error['data']['message']];
+            
             return view('supplier.list')->withErrors($errors)->withTitle('suppliers');
         }
         return view('supplier.list', ['suppliers' => $result['data']])->withTitle('suppliers');

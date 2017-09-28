@@ -6,16 +6,10 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Setting;
 use Validator;
-use Config;
-use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException as Exception;
 
-class HomeController extends Controller
+class HomeController extends FrontController
 {
-    public function __construct()
-    {
-        $this->client = new Client(['base_uri' => config('services.api.url')]);
-    }
-    
     /**
      * [dashboard]
      * @param  Request $request
@@ -25,7 +19,9 @@ class HomeController extends Controller
     {
         try {
             $token = $request->session()->get('token');
+            
             $response = $this->client->request('GET', 'orders/pending', ['query' =>['token' => $token]]);
+            
             $tickets_response = $this->client->request('GET', 'ticket/tips/printed', ['query' =>['token' => $token]]);
 
             if ($response->getstatusCode() == 200) {
@@ -38,11 +34,9 @@ class HomeController extends Controller
         } catch (InternalHttpException $e) {
             $error = json_decode($e->getResponse()->getContent(), true);
             $errors = [$error['data']['message']];
+            
             return view('dashboard')->withErrors($errors)->withTitle('dashboard');
         }
-                      
-        //return dshboard with user details
-        //summary of all
         return view('dashboard', ['orders' => $result['data'],'labels' => $order_result['data']])->withTitle('dashboard');
     }
 
@@ -56,7 +50,7 @@ class HomeController extends Controller
     public function setting(Request $request)
     {
         //get user account from user
-        $currentuser = JWTAuth::parseToken()->authenticate();
+        $currentuser = $this->getAuthUser($request);
         
         if ($request->isMethod('post')) {
             $credentials = $request->only(
@@ -72,21 +66,23 @@ class HomeController extends Controller
 
             if ($validator->fails()) {
                 $errors = $validator->errors()->all();
+                
                 return view('account.edit')->withErrors($errors)->withTitle('setting');
             }
 
             try {
                 $token = $request->session()->get('token');
                 $request->merge(['token' => $token]);
+                
                 $response = $this->client->request('POST', 'auth/reset', $request->only('email', 'password', 'password_confirmation', 'token'));
+                
                 if ($response->getstatusCode() == 200) {
                     $result = json_decode($response->getBody()->getContents(), true);
                 }
-                 
-                dd($result);
             } catch (InternalHttpException $e) {
                 $error = json_decode($e->getResponse()->getContent(), true);
                 $errors = [$error['data']['message']];
+                
                 return view('account.edit')->withErrors($errors)->withTitle('dashboard');
             }
         } else {

@@ -4,19 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Validator;
-use Config;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException as Exception;
 
-class AuthenticateController extends Controller
+class AuthenticateController extends FrontController
 {
-    protected $authCheck;
-
-    public function __construct()
-    {
-        $this->client = new Client(['base_uri' => config('services.api.url')]);
-    }
-
     public function login(Request $request)
     {
         if ($request->isMethod('post')) {
@@ -29,12 +21,14 @@ class AuthenticateController extends Controller
 
             if ($validator->fails()) {
                 $errors = $validator->errors()->all();
+                
                 return view('login')->withErrors($errors);
             } else {
                 try {
                     $response = $this->client->request('POST', 'auth/login', ['query' =>
                         ['email' => $request->email, 'password' => $request->password]
                     ]);
+                
                     if ($response->getstatusCode() == 200) {
                         $result = json_decode($response->getBody()->getContents());
                         $request->session()->put('token', $result->token);

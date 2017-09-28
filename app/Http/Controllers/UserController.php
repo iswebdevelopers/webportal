@@ -6,22 +6,17 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Setting;
 use Validator;
-use Config;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use GuzzleHttp\Client;
 
-class UserController extends Controller
+class UserController extends FrontController
 {
-    public function __construct()
-    {
-        $this->client = new Client(['base_uri' => config('services.api.url')]);
-    }
-
     public function users(Request $request)
     {
         try {
             $token = $request->session()->get('token');
-            $response = $this->client->request('GET', 'users', ['query' => ['token' => $token]]);
+            $page = $request->page ? $request->page : 1;
+            
+            $response = $this->client->request('GET', 'users', ['query' => ['token' => $token,'page' => $page]]);
                 
             if ($response->getstatusCode() == 200) {
                 $result = json_decode($response->getBody()->getContents(), true);
@@ -41,9 +36,11 @@ class UserController extends Controller
         if ($request->isMethod('post')) {
             try {
                 $response = $this->client->request('POST', 'auth/signup?token='.$token, ['form_params' => $request->all()]);
+                
                 if ($response->getstatusCode() == 200) {
                     $result = json_decode($response->getBody()->getContents(), true);
                 }
+                
                 return view('user.edit', ['message' => 'User has been created','status' => 'success'])->withToken($token)->withTitle('users');
             } catch (InternalHttpException $e) {
                 $error = json_decode($e->getResponse()->getContent(), true);
@@ -64,29 +61,35 @@ class UserController extends Controller
 
             if ($validator->fails()) {
                 $errors = $validator->errors()->all();
+                
                 return $data = ['status' => 'error','result' => $errors];
             }
 
             try {
                 $response = $this->client->request('POST', 'auth/recovery?token='.$token, ['form_params' => ['email' => $request->email]]);
+                
                 if ($response->getstatusCode() == 200) {
                     $result = json_decode($response->getBody()->getContents(), true);
                 }
+                
                 return $data = ['status' => 'success','result' => $result];
             } catch (InternalHttpException $e) {
                 $error = json_decode($e->getResponse()->getContent(), true);
                 $errors = [$error['data']['message']];
+                
                 return $data = ['status' => 'error','result' => $errors];
             }
         } else {
             try {
                 $response = $this->client->request('GET', 'users/'.$id, ['query' => ['token' => $token]]);
+                
                 if ($response->getstatusCode() == 200) {
                     $result = json_decode($response->getBody()->getContents(), true);
                 }
             } catch (InternalHttpException $e) {
                 $error = json_decode($e->getResponse()->getContent(), true);
                 $errors = [$error['data']['message']];
+                
                 return view('user.recovery')->withErrors($errors)->withTitle('setting')->withToken($token)->withInput($request->all());
             }
         }
@@ -127,11 +130,13 @@ class UserController extends Controller
                                 'password_confirmation'=>$request->password_confirmation]
                             ]
                 );
+                
                 if ($response->getstatusCode() == 200) {
                     $result = json_decode($response->getBody()->getContents(), true);
                 }
             } catch (HttpException $e) {
                 $errors = [$e->getMessage()];
+                
                 return view('user.reset', ['token' => $request->token])->withErrors($errors)->withInput($request->all());
             }
             return view('user.reset', ['token' => $request->token,'message' => 'Password reset successfull','status'=>'success']);

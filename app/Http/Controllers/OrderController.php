@@ -5,16 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Setting;
-use Config;
-use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException as Exception;
 
-class OrderController extends Controller
+class OrderController extends FrontController
 {
-    public function __construct()
-    {
-        $this->client = new Client(['base_uri' => config('services.api.url')]);
-    }
-
     public function orderlist(Request $request)
     {
         try {
@@ -32,6 +26,7 @@ class OrderController extends Controller
         } catch (InternalHttpException $e) {
             $error = json_decode($e->getResponse()->getContent(), true);
             $errors = [$error['data']['message']];
+            
             return view('labels.list')->withErrors($errors)->withTitle('label_history');
         }
 
@@ -45,13 +40,16 @@ class OrderController extends Controller
         if ($request->isMethod('post')) {
             try {
                 $response = $this->client->request('POST', 'order/'.$request->carton_type.'?token='.$token, ['form_params' => ['order_no'=>$request->order_no,'item_number' => $request->item_number]]);
+                
                 if ($response->getstatusCode() == 200) {
                     $result = json_decode($response->getBody()->getContents(), true);
                 }
+                
                 return view('labels.search', ['orders' => $result['data']])->withTitle('label_carton')->withInput($request->all());
             } catch (InternalHttpException $e) {
                 $error = json_decode($e->getResponse()->getContent(), true);
                 $errors = [$error['data']['message']];
+                
                 return Redirect('portal/label/carton')->withErrors($errors)->withTitle('label_carton')->withInput($request->all());
             }
         } else {
@@ -64,19 +62,25 @@ class OrderController extends Controller
         try {
             $token = $request->session()->get('token');
             $data = array();
+            
             $response = $this->client->request('GET', 'order/details/'.$order_no, ['query' => ['token' => $token]]);
+            
             if ($response->getstatusCode() == 200) {
                 $result = json_decode($response->getBody()->getContents(), true);
                 $data['orderdetails'] = $result['data'];
             }
+            
             $response = $this->client->request('POST', 'order/cartonpack?token='.$token, [
                         'form_params' => ['order_no' => $order_no]]);
+            
             if ($response->getstatusCode() == 200) {
                 $result = json_decode($response->getBody()->getContents(), true);
                 $data['cartonpack'] = $result['data'];
             }
+            
             $response =  $this->client->request('POST', 'order/cartonloose?token='.$token, [
                         'form_params' => ['order_no' => $order_no]]);
+            
             if ($response->getstatusCode() == 200) {
                 $result = json_decode($response->getBody()->getContents(), true);
                 $data['cartonloose'] = $result['data'];
@@ -84,6 +88,7 @@ class OrderController extends Controller
         } catch (InternalHttpException $e) {
             $error = json_decode($e->getResponse()->getContent(), true);
             $errors = [$error['data']['message']];
+            
             return view('labels.options', ['orderdetails' => $data,'order_no' => $order_no])->withTitle('label_orders');
         }
         return view('labels.options', ['orderdetails' => $data,'order_no' => $order_no])->withTitle('label_orders');
