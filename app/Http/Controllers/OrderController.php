@@ -23,8 +23,8 @@ class OrderController extends FrontController
             if ($response->getstatusCode() == 200) {
                 $result = json_decode($response->getBody()->getContents(), true);
             }
-        } catch (InternalHttpException $e) {
-            $error = json_decode($e->getResponse()->getContent(), true);
+        } catch (Exception $e) {
+            $error = json_decode((string) $e->getResponse()->getBody(), true);
             $errors = [$error['data']['message']];
             
             return view('labels.list')->withErrors($errors)->withTitle('label_history');
@@ -46,8 +46,8 @@ class OrderController extends FrontController
                 }
                 
                 return view('labels.search', ['orders' => $result['data']])->withTitle('label_carton')->withInput($request->all());
-            } catch (InternalHttpException $e) {
-                $error = json_decode($e->getResponse()->getContent(), true);
+            } catch (Exception $e) {
+                $error = json_decode((string) $e->getResponse()->getBody(), true);
                 $errors = [$error['data']['message']];
                 
                 return Redirect('portal/label/carton')->withErrors($errors)->withTitle('label_carton')->withInput($request->all());
@@ -85,8 +85,8 @@ class OrderController extends FrontController
                 $result = json_decode($response->getBody()->getContents(), true);
                 $data['cartonloose'] = $result['data'];
             }
-        } catch (InternalHttpException $e) {
-            $error = json_decode($e->getResponse()->getContent(), true);
+        } catch (Exception $e) {
+            $error = json_decode((string) $e->getResponse()->getBody(), true);
             $errors = [$error['data']['message']];
             
             return view('labels.options', ['orderdetails' => $data,'order_no' => $order_no])->withTitle('label_orders');

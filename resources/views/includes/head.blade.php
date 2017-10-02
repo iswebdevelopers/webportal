@@ -3,18 +3,25 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Portal - Fusion Retail Brands</title>
     <!-- JS Scripts-->
-    <!-- jQuery Js -->
+    <script type="text/javascript" src="{{ asset('js/dependencies/rsvp-3.1.0.min.js')}}"></script>
+	<script type="text/javascript" src="{{ asset('js/dependencies/sha-256.min.js')}}"></script>
+	<script type="text/javascript" src="{{ asset('js/qz-tray.js')}}"></script>
+    <!-- jQuery Js Styles-->
     <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
     <script src="{{ asset('js/jquery-ui-1.12.1.custom/jquery-ui.js') }}"></script>
     <script src="{{ asset('js/jquery.fancybox.min.js') }}"></script>
+    <link href="{{ asset('js/jquery-ui-1.12.1.custom/jquery-ui.css') }}" rel="stylesheet" />
+    <link href="{{ asset('css/jquery.fancybox.min.css') }}" rel="stylesheet" />
+    <!-- Data Table Js and CSS -->
+    <link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>
+	<script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
     <!-- Bootstrap Js -->
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <!-- Bootstrap Styles-->
     <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet" />
     <!-- FontAwesome Styles-->
     <link href="{{ asset('css/font-awesome.css') }}" rel="stylesheet" />
-    <link href="{{ asset('js/jquery-ui-1.12.1.custom/jquery-ui.css') }}" rel="stylesheet" />
-    <link href="{{ asset('css/jquery.fancybox.min.css') }}" rel="stylesheet" />
+    <!-- Jquery Confirm Js and Styles -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.js"></script>
     <style>
@@ -22,8 +29,6 @@
     background: white url({{ asset('js/jquery-ui-1.12.1.custom/images/ui-anim_basic_16x16.gif') }} right center no-repeat;
   }
   </style>
-    <!-- Morris Chart Styles-->
-    <!-- <link href="{{ asset('js/morris/morris-0.4.3.min.css') }}" rel="stylesheet" /> -->
     <!-- Custom Styles-->
     <link href="{{ asset('css/custom-styles.css') }}" rel="stylesheet" />
     <!-- Google Fonts-->

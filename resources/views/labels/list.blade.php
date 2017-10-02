@@ -8,13 +8,7 @@
             Order List
         </h1>
     </div>
-    @if ( $errors->count() > 0 )
-        <div class="alert alert-danger col-md-12">
-                @foreach( $errors->all() as $message )
-                  <strong>{{ $message }}</strong>
-                @endforeach
-        </div>
-    @endif
+    @include('errors.error-list')
     <!-- Order search form -->
     @include('partials._order_search_form')
     <!-- End Order Search form -->

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Setting;
 use Validator;
-use Symfony\Component\HttpKernel\Exception\HttpException;
+use GuzzleHttp\Exception\ClientException as Exception;
 
 class UserController extends FrontController
 {
@@ -21,9 +21,10 @@ class UserController extends FrontController
             if ($response->getstatusCode() == 200) {
                 $result = json_decode($response->getBody()->getContents(), true);
             }
-        } catch (InternalHttpException $e) {
-            $error = json_decode($e->getResponse()->getContent(), true);
+        } catch (Exception $e) {
+            $error = json_decode((string) $e->getResponse()->getBody(), true);
             $errors = [$error['data']['message']];
+            
             return view('user.list')->withErrors($errors)->withTitle('users');
         }
         return view('user.list', ['users' => $result['data']])->withTitle('users');
@@ -42,8 +43,8 @@ class UserController extends FrontController
                 }
                 
                 return view('user.edit', ['message' => 'User has been created','status' => 'success'])->withToken($token)->withTitle('users');
-            } catch (InternalHttpException $e) {
-                $error = json_decode($e->getResponse()->getContent(), true);
+            } catch (Exception $e) {
+                $error = json_decode((string) $e->getResponse()->getBody(), true);
                 $errors = [$error['data']['message']];
                 return view('user.edit')->withErrors($errors)->withTitle('users')->withToken($token)->withInput($request->all());
             }
@@ -73,8 +74,8 @@ class UserController extends FrontController
                 }
                 
                 return $data = ['status' => 'success','result' => $result];
-            } catch (InternalHttpException $e) {
-                $error = json_decode($e->getResponse()->getContent(), true);
+            } catch (Exception $e) {
+                $error = json_decode((string) $e->getResponse()->getBody(), true);
                 $errors = [$error['data']['message']];
                 
                 return $data = ['status' => 'error','result' => $errors];
@@ -86,8 +87,8 @@ class UserController extends FrontController
                 if ($response->getstatusCode() == 200) {
                     $result = json_decode($response->getBody()->getContents(), true);
                 }
-            } catch (InternalHttpException $e) {
-                $error = json_decode($e->getResponse()->getContent(), true);
+            } catch (Exception $e) {
+                $error = json_decode((string) $e->getResponse()->getBody(), true);
                 $errors = [$error['data']['message']];
                 
                 return view('user.recovery')->withErrors($errors)->withTitle('setting')->withToken($token)->withInput($request->all());
@@ -134,8 +135,8 @@ class UserController extends FrontController
                 if ($response->getstatusCode() == 200) {
                     $result = json_decode($response->getBody()->getContents(), true);
                 }
-            } catch (HttpException $e) {
-                $errors = [$e->getMessage()];
+            } catch (Exception $e) {
+                $errors = [(string) $e->getResponse()->getBody()];
                 
                 return view('user.reset', ['token' => $request->token])->withErrors($errors)->withInput($request->all());
             }

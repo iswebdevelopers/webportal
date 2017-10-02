@@ -10,15 +10,8 @@
     </div>    
     <!--account settings-->
     <div class="col-md-6 col-sm-12 col-xs-12">
-    @if ( $errors->count() > 0 )
-        <div class="alert alert-danger col-md-4 col-md-offset-4">
-            <ul>
-                @foreach( $errors->all() as $message )
-                  <li>{{ $message }}</li>
-                @endforeach
-              </ul> 
-        </div>
-    @endif
+    @include('errors.error-list')
+
     @if (!empty($message))
          <div class="alert col-md-4 col-md-offset-4 {{$status}}">
              {{$message}}

@@ -8,6 +8,7 @@
             Users List
         </h1>
     </div>
+    @include('errors.error-list')
     <!-- search panel -->
     <div class="col-md-10 col-sm-12 col-xs-12">
         <div class="panel panel-default">
@@ -31,6 +32,7 @@
         </div>          
     </div>
     <!-- end search panel -->
+    @if(isset($users))
     <!--Order List-->                
     <div class="col-md-10 col-sm-12 col-xs-12">
         <div class="panel panel-default">
@@ -43,23 +45,25 @@
              
             <div class="panel-body">
             	<nav aria-label="Page navigation" class="pagination-nav">
-				  	<h4>Page {{$users['current_page']}} of {{$users['last_page']}}</h4>
-				  	<ul class="pagination">
-				  		@if($users['current_page'] > 1)	
-					    	<li>
-					      		<a href="{{url()->current()}}/?page={{$users['current_page'] - 1}}" aria-label="Previous">
-					        		<span aria-hidden="true">&laquo;</span>
-					      		</a>
-					    	</li>
-				    	@endif
-				    	@if($users['current_page'] < $users['last_page'])
-					    	<li>
-					      		<a href="{{url()->current()}}/?page={{$users['current_page'] + 1}}" aria-label="Next">
-					        		<span aria-hidden="true">&raquo;</span>
-					      		</a>
-					    	</li>
-				    	@endif
-				  	</ul>
+            		@if(array_key_exists('current_page',$users))
+				  		<h4>Page {{$users['current_page']}} of {{$users['last_page']}}</h4>
+				  		<ul class="pagination">
+					  		@if($users['current_page'] > 1)	
+						    	<li>
+						      		<a href="{{url()->current()}}/?page={{$users['current_page'] - 1}}" aria-label="Previous">
+						        		<span aria-hidden="true">&laquo;</span>
+						      		</a>
+						    	</li>
+					    	@endif
+					    	@if($users['current_page'] < $users['last_page'])
+						    	<li>
+						      		<a href="{{url()->current()}}/?page={{$users['current_page'] + 1}}" aria-label="Next">
+						        		<span aria-hidden="true">&raquo;</span>
+						      		</a>
+						    	</li>
+					    	@endif
+					  	</ul>
+				  	@endif	
 				</nav>
                 <div class="table-responsive">
                     <table class="table table-striped table-bordered table-hover">
@@ -87,6 +91,7 @@
             </div>
         </div>              
     </div>
-    <!--End Order List-->  
+    <!--End Order List-->    	
+    @endif  
 </div>
 @stop

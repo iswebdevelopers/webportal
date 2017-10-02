@@ -7,15 +7,9 @@
         {{ Session::get('status') }}
     </div>
     @endif
-	@if ( $errors->count() > 0 )
-		<div class="alert alert-danger col-md-4 col-md-offset-4">
-			<ul>
-		        @foreach( $errors->all() as $message )
-		          <li>{{ $message }}</li>
-		        @endforeach
-		      </ul>	
-		</div>
-	@endif
+
+	@include('errors.error-list')
+	
 	<div class="panel panel-default col-md-4 col-md-offset-4">
 		<div class="panel-heading">
 			Login

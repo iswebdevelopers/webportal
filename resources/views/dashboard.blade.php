@@ -8,13 +8,9 @@
             Dashboard
         </h1>
     </div>
-    @if ( $errors->count() > 0 )
-        <div class="alert alert-danger col-md-12">
-                @foreach( $errors->all() as $message )
-                  <strong>{{ $message }}</strong>
-                @endforeach
-        </div>
-    @endif
+    
+    @include('errors.error-list')
+
     <!--Pending Order List-->                
     <div class="col-md-8 col-sm-12 col-xs-12">
         <div class="panel panel-default">

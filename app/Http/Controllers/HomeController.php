@@ -31,8 +31,8 @@ class HomeController extends FrontController
             if ($tickets_response->getstatusCode() == 200) {
                 $order_result = json_decode($tickets_response->getBody()->getContents(), true);
             }
-        } catch (InternalHttpException $e) {
-            $error = json_decode($e->getResponse()->getContent(), true);
+        } catch (Exception $e) {
+            $error = json_decode((string) $e->getResponse()->getBody(), true);
             $errors = [$error['data']['message']];
             
             return view('dashboard')->withErrors($errors)->withTitle('dashboard');
@@ -79,8 +79,8 @@ class HomeController extends FrontController
                 if ($response->getstatusCode() == 200) {
                     $result = json_decode($response->getBody()->getContents(), true);
                 }
-            } catch (InternalHttpException $e) {
-                $error = json_decode($e->getResponse()->getContent(), true);
+            } catch (Exception $e) {
+                $error = json_decode((string) $e->getResponse()->getBody(), true);
                 $errors = [$error['data']['message']];
                 
                 return view('account.edit')->withErrors($errors)->withTitle('dashboard');

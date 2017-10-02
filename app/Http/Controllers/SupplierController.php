@@ -9,11 +9,6 @@ use GuzzleHttp\Exception\ClientException as Exception;
 
 class SupplierController extends FrontController
 {
-    public function __construct()
-    {
-        $this->client = new Client(['base_uri' => config('services.api.url')]);
-    }
-
     public function index(Request $request)
     {
         try {
@@ -25,12 +20,13 @@ class SupplierController extends FrontController
             if ($response->getstatusCode() == 200) {
                 $result = json_decode($response->getBody()->getContents(), true);
             }
-        } catch (InternalHttpException $e) {
-            $error = json_decode($e->getResponse()->getContent(), true);
+        } catch (Exception $e) {
+            $error = json_decode((string) $e->getResponse()->getBody(), true);
             $errors = [$error['data']['message']];
             
             return view('supplier.list')->withErrors($errors)->withTitle('suppliers');
         }
+        
         return view('supplier.list', ['suppliers' => $result['data']])->withTitle('suppliers');
     }
 
@@ -44,12 +40,12 @@ class SupplierController extends FrontController
             if ($response->getstatusCode() == 200) {
                 $result = json_decode($response->getBody()->getContents(), true);
             }
-        } catch (InternalHttpException $e) {
-            $error = json_decode($e->getResponse()->getContent(), true);
+        } catch (Exception $e) {
+            $error = json_decode((string) $e->getResponse()->getBody(), true);
             $errors = [$error['data']['message']];
             
             return view('supplier.list')->withErrors($errors)->withTitle('suppliers');
         }
-        return view('supplier.list', ['suppliers' => $result['data']])->withTitle('suppliers');
+        return view('supplier.list', ['suppliers' => $result])->withTitle('suppliers');
     }
 }

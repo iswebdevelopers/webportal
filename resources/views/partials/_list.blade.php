@@ -33,6 +33,7 @@
             </div>
         </div>
     @else
+    	@include('errors.error-list')
         <div class="alert alert-danger col-md-6">
             No orders found.
         </div>

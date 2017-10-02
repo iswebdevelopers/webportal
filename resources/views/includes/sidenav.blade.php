@@ -29,6 +29,9 @@
             </li>
             @endif
             <li>
+                <a @if ($title == 'print-shop') class="active-menu" @endif href="/portal/print-shop"><i class="fa fa-print" aria-hidden="true"></i>Print Shop</a>
+            </li>
+            <li>
                 <a @if ($title == 'setting') class="active-menu" @endif id="recovery" data-fancybox data-type="ajax" data-src="/portal/user/recovery/{{$user['id']}}" href="javascript:;"><i class="fa fa-cog" aria-hidden="true"></i>Setting</a>
             </li>
         </ul>

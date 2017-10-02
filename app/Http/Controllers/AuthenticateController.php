@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Validator;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 use GuzzleHttp\Exception\ClientException as Exception;
 
 class AuthenticateController extends FrontController
@@ -37,7 +36,7 @@ class AuthenticateController extends FrontController
                     } else {
                         $errors = [$response->getstatusCode()." - ".$response->getstatusText()];
                     }
-                } catch (HttpException $e) {
+                } catch (Exception $e) {
                     $errors = ['Please check your credentials'];
                 }
                 return view('login')->withErrors($errors);

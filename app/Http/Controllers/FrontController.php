@@ -27,7 +27,51 @@ class FrontController extends Controller
                 return $result['authuser'];
             }
         } catch (Exception $e) {
-            Log::info('Exception '. $e->getMessage());
+            Log::info('Exception '. (string) $e->getResponse()->getBody());
+        }
+    }
+
+    /**
+     * getTipsTicketData - get the ticket data
+     * @param  Request $request
+     * @param  $ticket  ticket object from db
+     * @return label data that will be sent to print shop
+     */
+    public function getTipsTicketData($ticket, Request $request)
+    {
+        try {
+            $token = $request->session()->get('token');
+            
+            $response = $this->client->request('GET', 'ticket/tips/'.$ticket['order_no'].'/'.$ticket['item_number'], ['query' => ['token'=>$token]]);
+            
+            if ($response->getstatusCode() == 200) {
+                $result = json_decode($response->getBody()->getContents(), true);
+                return $result['data'];
+            }
+        } catch (Exception $e) {
+            throw new Exception("Error Processing Request - Method:getTipsTicketData", 1);
+        }
+    }
+
+    /**
+     * getCreatedTickets - get all the created tickets
+     * @param  Request $request
+     * @param  string  $type carton-
+     * @return
+     */
+    public function getCreatedTickets(Request $request)
+    {
+        try {
+            $token = $request->session()->get('token');
+            
+            $response = $this->client->request('GET', 'tickets', ['query' => ['token'=>$token,]]);
+            
+            if ($response->getstatusCode() == 200) {
+                $result = json_decode($response->getBody()->getContents(), true);
+                return $result['data'];
+            }
+        } catch (Exception $e) {
+            throw new Exception("Error Processing Request - Method:getCreatedTickets", 1);
         }
     }
 }

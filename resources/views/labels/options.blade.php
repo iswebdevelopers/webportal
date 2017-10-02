@@ -8,13 +8,7 @@
             Label Options
         </h1>
     </div>
-    @if ( $errors->count() > 0 )
-        <div class="alert alert-danger col-md-12">
-                @foreach( $errors->all() as $message )
-                  <strong>{{ $message }}</strong>
-                @endforeach
-        </div>
-    @endif
+    @include('errors.error-list')
     <!--labels Options-->                
     <div class="col-md-12 col-sm-12">
         <div class="panel panel-default">

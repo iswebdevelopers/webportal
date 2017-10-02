@@ -8,6 +8,7 @@
             Supplier List
         </h1>
     </div>
+    @include('errors.error-list')
     <!-- search panel -->
     <div class="col-md-10 col-sm-12 col-xs-12">
         <div class="panel panel-default">
@@ -21,38 +22,37 @@
                     <label>Name/ID</label>
                     <input name="term" class="form-control" type="text" value="" >
                 </div>
-                <!-- <div class="form-group">    
-                    <label>Email Address</label>
-                    <input name="email" class="form-control" type="email" value="{{ Input::old('email') }}">
-                </div> -->
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
         </div>          
     </div>
     <!-- end search panel -->
+    @if($suppliers)
     <!--supplier List-->                
     <div class="col-md-10 col-sm-12 col-xs-12">
         <div class="panel panel-default">
             <div class="panel-body">
             	<nav aria-label="Page navigation" class="pagination-nav">
-				  <h4>Page {{$suppliers['current_page']}} of {{$suppliers['last_page']}}</h4>
-				  	<ul class="pagination">
-				  		@if($suppliers['current_page'] > 1)	
-					    	<li>
-					      		<a href="{{url()->current()}}/?page={{$suppliers['current_page'] - 1}}" aria-label="Previous">
-					        		<span aria-hidden="true">&laquo;</span>
-					      		</a>
-					    	</li>
-					    @endif
-				    	@if($suppliers['current_page'] < $suppliers['last_page'])
-					    	<li>
-					      		<a href="{{url()->current()}}/?page={{$suppliers['current_page'] + 1}}" aria-label="Next">
-					        		<span aria-hidden="true">&raquo;</span>
-					      		</a>
-					    	</li>
-				    	@endif
-				  	</ul>
+            		@if(array_key_exists('current_page',$suppliers))
+				  		<h4>Page {{$suppliers['current_page']}} of {{$suppliers['last_page']}}</h4>	
+					  	<ul class="pagination">
+					  		@if($suppliers['current_page'] > 1)	
+						    	<li>
+						      		<a href="{{url()->current()}}/?page={{$suppliers['current_page'] - 1}}" aria-label="Previous">
+						        		<span aria-hidden="true">&laquo;</span>
+						      		</a>
+						    	</li>
+						    @endif
+					    	@if($suppliers['current_page'] < $suppliers['last_page'])
+						    	<li>
+						      		<a href="{{url()->current()}}/?page={{$suppliers['current_page'] + 1}}" aria-label="Next">
+						        		<span aria-hidden="true">&raquo;</span>
+						      		</a>
+						    	</li>
+					    	@endif
+					  	</ul>
+				  	@endif
 				</nav>
                 <div class="table-responsive">
                     <table class="table table-striped table-bordered table-hover">
@@ -85,6 +85,6 @@
             </div>
         </div>              
     </div>
-    <!--End supplier List-->  
+    @endif
 </div>
 @stop
