@@ -158,28 +158,29 @@
     }
 
 
-    /// Raw Printers ///
-    function printEPL() {
-        var config = getUpdatedConfig();
+    // /// Raw Printers ///
+    // function printEPL() {
+    //     var config = getUpdatedConfig();
 
-        var printData = [
-            '\nN\n',
-            'q609\n',
-            'Q203,26\n',
-            'B5,26,0,1A,3,7,152,B,"1234"\n',
-            'A310,26,0,3,1,1,N,"SKU 00000 MFG 0000"\n',
-            'A310,56,0,3,1,1,N,"QZ PRINT APPLET"\n',
-            'A310,86,0,3,1,1,N,"TEST PRINT SUCCESSFUL"\n',
-            'A310,116,0,3,1,1,N,"FROM SAMPLE.HTML"\n',
-            'A310,146,0,3,1,1,N,"QZ.IO"\n',
-            { type: 'raw', format: 'image', data: 'assets/img/image_sample_bw.png', options: { language: 'EPL', x: 150, y: 300 } },
-            '\nP1,1\n'
-        ];
+    //     var printData = [
+    //         '\nN\n',
+    //         'q609\n',
+    //         'Q203,26\n',
+    //         'B5,26,0,1A,3,7,152,B,"1234"\n',
+    //         'A310,26,0,3,1,1,N,"SKU 00000 MFG 0000"\n',
+    //         'A310,56,0,3,1,1,N,"QZ PRINT APPLET"\n',
+    //         'A310,86,0,3,1,1,N,"TEST PRINT SUCCESSFUL"\n',
+    //         'A310,116,0,3,1,1,N,"FROM SAMPLE.HTML"\n',
+    //         'A310,146,0,3,1,1,N,"QZ.IO"\n',
+    //         { type: 'raw', format: 'image', data: 'assets/img/image_sample_bw.png', options: { language: 'EPL', x: 150, y: 300 } },
+    //         '\nP1,1\n'
+    //     ];
 
-        qz.print(config, printData).catch(displayError);
-    }
+    //     qz.print(config, printData).catch(displayError);
+    // }
 
-    function printZPL() {
+    function printZPL(id) {
+    console.log(id);
         var config = getUpdatedConfig();
         $.ajax(
         	
@@ -187,7 +188,7 @@
         var printData = [
             '^XA\n',
             '^FO50,50^ADN,36,20^FDPRINTED USING QZ PRINT PLUGIN ' + qzVersion + '\n',
-            { type: 'raw', format: 'image', data: 'assets/img/image_sample_bw.png', options: { language: 'ZPLII' } },
+            // { type: 'raw', format: 'image', data: 'assets/img/image_sample_bw.png', options: { language: 'ZPLII' } },
             '^FS\n',
             '^XZ\n'
         ];
@@ -879,7 +880,7 @@
     function displayMessage(msg, css) {
         if (css == undefined) { css = 'alert-info'; }
 
-        var timeout = setTimeout(function() { $('#' + timeout).alert('close'); }, 5000);
+        var timeout = setTimeout(function() { $('#' + timeout).alert('close'); }, 50000);
 
         var alert = $("<div/>").addClass('alert alert-dismissible fade in ' + css)
                 .css('max-height', '20em').css('overflow', 'auto')
