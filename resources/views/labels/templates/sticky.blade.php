@@ -8,7 +8,7 @@
 			^FX Second.
 			^CF0,20
 			^FO10,90^FDSize:{{$item['size']}}^FS
-			^FO80,90^FDitem: {{$item['itemnumber']}}^FS
+			^FO80,90^FDitem: {{$item['item']}}^FS
 
 			^FX Third section with barcode.
 			^BY1,100
@@ -16,9 +16,9 @@
 
 			^FX Fourth section (the two boxes on the bottom).
 			^CF0,20,
-			^FO50,160^FD{{$item['description1']}}^FS
+			^FO50,160^FD{{$item['description']}}^FS
 			^CF0,20,
-			^FO50,180^FD{{$item['description2']}}^FS
+			^FO50,180^FD{{$item['colour']}}^FS
 		^XZ
 		<br/>
 	@endforeach
