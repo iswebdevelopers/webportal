@@ -23,6 +23,8 @@ Route::group(['prefix' => 'portal','middleware' => 'api'], function () {
     
     Route::get('/setting', 'HomeController@setting');
     Route::post('/setting', 'HomeController@setting');
+
+    Route::get('/print-shop', 'PrintController@index');
     
     Route::post('/label/create/ticket', 'LabelController@createticket');
     Route::get('/label/order/{order?}', 'OrderController@orderdetails');

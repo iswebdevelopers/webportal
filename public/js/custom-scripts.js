@@ -56,4 +56,13 @@ $( function() {
         // show rlrment with selected id
         $("div#"+value).show();
     });
+
+  $("#printfiles").DataTable({
+  	"sPaginationType": "full_numbers",
+  	"bPaginate":true,
+  	"iDisplayLength": 10,
+  	"searching": false,
+    "ordering": false
+  });
 });
+
