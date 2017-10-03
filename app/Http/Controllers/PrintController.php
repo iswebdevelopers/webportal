@@ -16,8 +16,8 @@ class PrintController extends FrontController
 
     public function rawData($id)
     {
-    	$raw_data = UserLabelPrint::findOrFail($id,['raw_data']);
+        $raw_data = UserLabelPrint::findOrFail($id, ['raw_data']);
 
-    	return 
+        return '';
     }
 }

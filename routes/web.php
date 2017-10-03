@@ -1,4 +1,4 @@
-z<?php
+<?php
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +24,7 @@ Route::group(['prefix' => 'portal','middleware' => 'api'], function () {
     Route::get('/setting', 'HomeController@setting');
     Route::post('/setting', 'HomeController@setting');
 
-    // Route::get('/print-shop', 'PrintController@index');
+    Route::get('/print-shop', 'PrintController@index');
     
     Route::post('/label/create/ticket', 'LabelController@createticket');
     Route::get('/label/order/{order?}', 'OrderController@orderdetails');
@@ -62,4 +62,4 @@ Route::get('login', 'AuthenticateController@login');
 
 Route::get('reset_password/{token}', 'UserController@reset')->name('password.reset');
 Route::post('reset_password/{token}', 'UserController@reset');
-Route::get('portal/print-shop', 'PrintController@index');
+//Route::get('portal/print-shop', 'PrintController@index');
