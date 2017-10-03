@@ -4,7 +4,7 @@
             <i class="fa fa-external-link"></i>
         </button>
         <h3 class="panel-title">
-            Connection: <span id="qz-status" class="text-muted" style="font-weight: bold;">Active</span>
+            Connection: <span id="qz-status" class="text-muted" style="font-weight: bold;">Unknown</span>
         </h3>
     </div>
 
@@ -14,7 +14,7 @@
                 <button type="button" class="btn btn-success" onclick="startConnection();">Connect</button>
                 <button type="button" class="btn btn-warning" onclick="endConnection();">Disconnect</button>
             </div>
-            <button type="button" class="btn btn-info" onclick="listNetworkInfo();">List Network Info</button>
+            <!-- <button type="button" class="btn btn-info" onclick="listNetworkInfo();">List Network Info</button> -->
         </div>
     </div>
 </div>

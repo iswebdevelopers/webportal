@@ -9,8 +9,15 @@ class PrintController extends FrontController
 {
     public function index()
     {
-        $prints = UserLabelPrint::all();
+        $prints = UserLabelPrint::all(['order_id','type','quantity','id']);
         
         return view('print.home', ['prints' => $prints])->withTitle('print-shop');
+    }
+
+    public function rawData($id)
+    {
+        $raw_data = UserLabelPrint::findOrFail($id, ['raw_data']);
+
+        return '';
     }
 }

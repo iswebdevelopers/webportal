@@ -62,3 +62,4 @@ Route::get('login', 'AuthenticateController@login');
 
 Route::get('reset_password/{token}', 'UserController@reset')->name('password.reset');
 Route::post('reset_password/{token}', 'UserController@reset');
+//Route::get('portal/print-shop', 'PrintController@index');
