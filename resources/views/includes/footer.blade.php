@@ -7,4 +7,3 @@
 <!-- Custom Js -->
 <script type="text/javascript" src="{{ asset('js/custom/scripts.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/custom/main.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/printer/main.js')}}"></script>

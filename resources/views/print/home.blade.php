@@ -21,4 +21,5 @@
     @include('print.rawprinting_tab') 
     @include('print.print_files') 
 </div>
+<script type="text/javascript" src="{{ asset('js/printer/main.js')}}"></script>
 @stop
