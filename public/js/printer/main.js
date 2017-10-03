@@ -175,52 +175,6 @@
         qz.print(config, printData).catch(displayError);
     }
 
-    /// Serial ///
-    function listSerialPorts() {
-        qz.serial.findPorts().then(function(data) {
-            var list = '';
-            for(var i = 0; i < data.length; i++) {
-                list += "&nbsp; <code>" + data[i] + "</code>" + serialButton(["serialPort"], [data[i]]) + "<br/>";
-            }
-
-            displayMessage("<strong>Available serial ports:</strong><br/>" + list);
-        }).catch(displayError);
-    }
-
-    function openSerialPort() {
-        var widthVal = $("#serialWidth").val();
-        if (!widthVal) { widthVal = null; }
-
-        var bounds = {
-            start: $("#serialStart").val(),
-            end: $("#serialEnd").val(),
-            width: widthVal
-        };
-
-        qz.serial.openPort($("#serialPort").val(), bounds).then(function() {
-            displayMessage("Serial port opened");
-        }).catch(displayError);
-    }
-
-    function sendSerialData() {
-        var properties = {
-            baudRate: $("#serialBaud").val(),
-            dataBits: $("#serialData").val(),
-            stopBits: $("#serialStop").val(),
-            parity: $("#serialParity").val(),
-            flowControl: $("#serialFlow").val()
-        };
-
-        qz.serial.sendData($("#serialPort").val(), $("#serialCmd").val(), properties).catch(displayError);
-    }
-
-    function closeSerialPort() {
-        qz.serial.closePort($("#serialPort").val()).then(function() {
-            displayMessage("Serial port closed");
-        }).catch(displayError);
-    }
-
-
     /// USB ///
     function listUsbDevices() {
         qz.usb.listDevices(true).then(function(data) {
