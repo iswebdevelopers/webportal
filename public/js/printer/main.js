@@ -180,20 +180,20 @@
     }
 
     function printZPL(id) {
-    console.log(id);
         var config = getUpdatedConfig();
-        $.ajax(
-        	
-        	);
-        var printData = [
-            '^XA\n',
-            '^FO50,50^ADN,36,20^FDPRINTED USING QZ PRINT PLUGIN ' + qzVersion + '\n',
-            // { type: 'raw', format: 'image', data: 'assets/img/image_sample_bw.png', options: { language: 'ZPLII' } },
-            '^FS\n',
-            '^XZ\n'
-        ];
-
-        qz.print(config, printData).catch(displayError);
+        
+        $.ajax({
+        	url: '/portal/label/rawdata/' + id,
+        	success: function(result) {
+        		data = $.parseJSON(result);
+        		console.log(data.data);
+        		var printData = [data.data];
+        		qz.print(config, printData).catch(displayError);
+        	},
+        	error: function(XMLHttpRequest, textStatus, errorThrown) { 
+        		displayMessage("Status: " + textStatus + "Error: " + errorThrown); 
+    		}
+    	});
     }
 
     function printESCP() {
@@ -880,7 +880,7 @@
     function displayMessage(msg, css) {
         if (css == undefined) { css = 'alert-info'; }
 
-        var timeout = setTimeout(function() { $('#' + timeout).alert('close'); }, 50000);
+        var timeout = setTimeout(function() { $('#' + timeout).alert('close'); }, 5000);
 
         var alert = $("<div/>").addClass('alert alert-dismissible fade in ' + css)
                 .css('max-height', '20em').css('overflow', 'auto')

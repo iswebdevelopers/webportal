@@ -7,7 +7,7 @@
 <body>
     <div id="wrapper">
         @include('includes.topnav')
-
+        @include('includes.sidenav')
         <div id="page-wrapper">
             <div id="page-inner">
                 @yield('content')

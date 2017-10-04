@@ -14,10 +14,10 @@ class PrintController extends FrontController
         return view('print.home', ['prints' => $prints])->withTitle('print-shop');
     }
 
-    public function rawData($id)
+    public function rawdata($id)
     {
-        $raw_data = UserLabelPrint::findOrFail($id, ['raw_data']);
+        $data = UserLabelPrint::findOrFail($id, ['raw_data']);
 
-        return '';
+        return json_encode(['data' => $data->raw_data]);
     }
 }
