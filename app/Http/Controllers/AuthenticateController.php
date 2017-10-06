@@ -8,6 +8,11 @@ use GuzzleHttp\Exception\ClientException as Exception;
 
 class AuthenticateController extends FrontController
 {
+    /**
+     * log in teh user with user input
+     * @param  Request $request request object
+     * @return token after successfull login or error
+     */
     public function login(Request $request)
     {
         if ($request->isMethod('post')) {

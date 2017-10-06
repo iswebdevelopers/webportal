@@ -4,9 +4,9 @@
 
 <div class="row">
     <div class="col-md-12">
-        <h1 class="page-header">
+        <h3 class="page-header">
             Order List
-        </h1>
+        </h3>
     </div>
     @include('errors.error-list')
     <!-- Order search form -->

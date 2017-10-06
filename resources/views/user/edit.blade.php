@@ -4,9 +4,9 @@
 
 <div class="row">
     <div class="col-md-12">
-        <h1 class="page-header">
+        <h3 class="page-header">
             New User
-        </h1>
+        </h3>
     </div>    
     @if (!empty($message))
          <div class="alert col-md-4 col-md-offset-4 alert-{{$status}}">

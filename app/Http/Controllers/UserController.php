@@ -10,6 +10,11 @@ use GuzzleHttp\Exception\ClientException as Exception;
 
 class UserController extends FrontController
 {
+    /**
+     * list of users
+     * @param  Request $request
+     * @return users collections
+     */
     public function users(Request $request)
     {
         try {
@@ -30,6 +35,11 @@ class UserController extends FrontController
         return view('user.list', ['users' => $result['data']])->withTitle('users');
     }
 
+    /**
+     * create user
+     * @param  Request $request [description]
+     * @return user object and message
+     */
     public function create(Request $request)
     {
         $token = $request->session()->get('token');
@@ -51,6 +61,12 @@ class UserController extends FrontController
         }
     }
 
+    /**
+     * user recovery
+     * @param  Request $request
+     * @param  string  $id
+     * @return email users with link
+     */
     public function recovery(Request $request, $id='')
     {
         $token = $request->session()->get('token');
@@ -97,6 +113,12 @@ class UserController extends FrontController
         return view('user.recovery', ['users' => $result['data']])->withToken($token)->withTitle('setting');
     }
 
+    /**
+     * Reset user password
+     * @param  Request $request
+     * @param  string  $token
+     * @return return message
+     */
     public function reset(Request $request, $token = '')
     {
         if ($request->isMethod('post')) {
@@ -146,11 +168,16 @@ class UserController extends FrontController
         }
     }
 
+    /**
+     * user logout
+     * @param  Request $request
+     * @return redirect to login page
+     */
     public function logout(Request $request)
     {
         $token = $request->token;
 
-        $loggedout = JWTAuth::invalidate(JWTAuth::getToken());
+        $loggedout = $request->session->flush();
 
         return redirect('login');
     }

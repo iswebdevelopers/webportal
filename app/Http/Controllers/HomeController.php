@@ -11,9 +11,9 @@ use GuzzleHttp\Exception\ClientException as Exception;
 class HomeController extends FrontController
 {
     /**
-     * [dashboard]
+     * Dashboard
      * @param  Request $request
-     * @return
+     * @return data for dashboard - account, order and order history
      */
     public function dashboard(Request $request)
     {
@@ -41,12 +41,10 @@ class HomeController extends FrontController
     }
 
     /**
-     * [orderlist]
+     * User account settings
      * @param  Request $request
-     * @return
+     * @return settings data array
      */
-    
-
     public function setting(Request $request)
     {
         //get user account from user
