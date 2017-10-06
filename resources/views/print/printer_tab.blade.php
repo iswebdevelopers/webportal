@@ -18,11 +18,11 @@
         <hr>
         <div class="form-group">
             <label>Current printer:</label>
-            <div id="configPrinter">NONE</div>
+            <div id="configPrinter">{{$setting['default'] ?? 'NONE'}}</div>
         </div>
         <div class="form-group">
             <div class="btn-group" role="group">
-                <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#askHostModal">Set To Host</button>
+                <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#askHostModal">Set Host</button>
             </div>
         </div>
     </div>
@@ -32,8 +32,10 @@
             <div class="modal-content">
                 <div class="modal-body">
                     <div class="form-group">
+                    	{{csrf_field()}}
                         <label for="askHost">Host:</label>
                         <input type="text" id="askHost" class="form-control" value="192.168.1.254" />
+                        <!-- <input type="hidden" id="askUser" value="{{$setting['user_id'] ?? $user['id']}}"> -->
                     </div>
                     <div class="form-group">
                         <label for="askPort">Port:</label>
@@ -42,7 +44,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" onclick="setPrintHost();">Set</button>
+                    <button type="button" class="btn btn-primary" onclick="setPrintHost({{$setting['user_id'] ?? $user['id']}});">Set</button>
                 </div>
             </div>
         </div>
