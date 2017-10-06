@@ -237,10 +237,10 @@ margin:0px;
 }
 .top-navbar .navbar-brand {
 color: #fff;
-width: 260px;
+width: 200px;
 text-align: left;
 height: 60px;
-font-size: 28px;
+font-size: 21px;
 font-weight: 700;
 text-transform: uppercase;
 line-height: 30px;
@@ -411,7 +411,7 @@ line-height: 1.428571429;
  
  @media(min-width:768px) {
      #page-wrapper{
-               margin: 0 0 0 260px;
+               margin: 0 0 0 200px;
         padding: 15px 30px;
         min-height: 1000px;
 		
@@ -424,7 +424,7 @@ line-height: 1.428571429;
     .navbar-side {
         z-index: 1;
         position: absolute;
-        width: 260px;
+        width: 200px;
     }
 
    .navbar {

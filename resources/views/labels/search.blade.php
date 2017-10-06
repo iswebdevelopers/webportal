@@ -3,9 +3,9 @@
 @section('content')
 <div class="row">
     <div class="col-md-12">
-        <h1 class="page-header">
+        <h3 class="page-header">
             Search
-        </h1>
+        </h3>
     </div>
     <?php //dd($input);?>
     <!-- search panel -->

@@ -9,11 +9,11 @@
         @include('includes.topnav')
         @include('includes.sidenav')
         <div id="page-wrapper">
-            <div id="page-inner">
+            <!-- <div id="page-inner"> -->
                 @yield('content')
                 <!-- /. ROW  -->
                 
-            </div>
+            <!-- </div> -->
             @include('includes.foot')
             <!-- /. PAGE INNER  -->
         </div>

@@ -6,9 +6,9 @@
 
 <div class="row">
     <div class="col-md-12">
-        <h1 class="page-header">
+        <h3 class="page-header">
             Print Shop
-        </h1>
+        </h3>
     </div>
     <div class="row-spread">
     	<div class="col-md-5">
