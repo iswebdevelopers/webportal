@@ -86,17 +86,16 @@
             window.location.assign("qz:launch");
             //Retry 5 times, pausing 1 second between each attempt
             startConnection({ retries: 5, delay: 1 });
-            setPrinterdefaults();
         }
     }
 
     function startConnection(config) {
         if (!qz.websocket.isActive()) {
             updateState('Waiting', 'default');
-
             qz.websocket.connect(config).then(function() {
                 updateState('Active', 'success');
                 findVersion();
+                findPrinters();
             }).catch(handleConnectionError);
         } else {
             displayMessage('An active connection with QZ already exists.', 'alert-warning');
@@ -111,10 +110,6 @@
         } else {
             displayMessage('No active connection with QZ exists.', 'alert-warning');
         }
-    }
-
-    function setPrinterDefaults() {
-
     }
 
     function listNetworkInfo() {
@@ -152,15 +147,17 @@
     }
 
     function findPrinters() {
-        qz.printers.find().then(function(data) {
+        qz.printers.find().then(function(data) {        	
             var list = '';
             for(var i = 0; i < data.length; i++) {
-                list += "&nbsp; " + data[i] + "<br/>";
+                list += "<a href='#' class='list-group-item list-group-item-action'>&nbsp; " + data[i] + "</a>";
             }
-
-            displayMessage("<strong>Available printers:</strong><br/>" + list);
+            $("#printer-list").append(list);
+            $("#printer-list").show();
+            // displayMessage("<strong>Available printers:</strong><br/>" + list);
         }).catch(displayError);
     }
+
 
 
     /// Raw Printers ///
@@ -519,6 +516,12 @@
         $("#hidWeightRadio").click(function() { window.readingWeight = true; });
 
         $("[data-toggle='tooltip']").tooltip();
+
+        $("#printer-list").on("click","a",function(e) {
+        	e.preventDefault();
+        	var printer = $(this).text();
+        	setPrinter(printer);
+        });
     });
 
     qz.websocket.setClosedCallbacks(function(evt) {
