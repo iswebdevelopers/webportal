@@ -17,8 +17,21 @@
         </div>
         <hr>
         <div class="form-group">
+        	<div class="form-group">
+            <label>All Printer:</label>
+            <div class="list-group" id="printer-list" style="display: hidden">
+        	</div>
+        </div>
+        <div class="form-group">
             <label>Current printer:</label>
-            <div id="configPrinter">{{$setting['default'] ?? 'NONE'}}</div>
+            <div id="configPrinter">
+            <em>HOST:</em>
+            @if(isset($setting['host']))
+            {{$setting['host'].':'.$setting['port']}}
+            @else
+            NONE
+            @endif
+        	</div>
         </div>
         <div class="form-group">
             <div class="btn-group" role="group">
@@ -34,12 +47,12 @@
                     <div class="form-group">
                     	{{csrf_field()}}
                         <label for="askHost">Host:</label>
-                        <input type="text" id="askHost" class="form-control" value="192.168.1.254" />
+                        <input type="text" id="askHost" class="form-control" value="{{$setting['host'] ?? ''}}" />
                         <!-- <input type="hidden" id="askUser" value="{{$setting['user_id'] ?? $user['id']}}"> -->
                     </div>
                     <div class="form-group">
                         <label for="askPort">Port:</label>
-                        <input type="text" id="askPort" class="form-control" value="9100" />
+                        <input type="text" id="askPort" class="form-control" value="{{$setting['port'] ?? '9100'}}" />
                     </div>
                 </div>
                 <div class="modal-footer">
