@@ -14,7 +14,7 @@ class LabelController extends FrontController
     /**
      * Tickets Creation for warehouse users only
      * @param  Request $request
-     * @return label print data
+     * @return label print data array
      */
     public function createticket(Request $request)
     {
@@ -61,10 +61,10 @@ class LabelController extends FrontController
     }
 
     /**
-     * printcartons cartonpacka and cartonloose data
+     * printcartons cartonpack and cartonloose data
      * @param  Request $request
      * @param  int     $order_no
-     * @return data
+     * @return data array
      */
     public function printcartons(Request $request, int $order_no)
     {
@@ -107,7 +107,7 @@ class LabelController extends FrontController
      * printstickies print sticky labels
      * @param  Request $request
      * @param  int     $order_no
-     * @return data
+     * @return data array
      */
     public function printstickies(Request $request, int $order_no)
     {
@@ -157,7 +157,7 @@ class LabelController extends FrontController
      * @param  string   $cartontype
      * @param  int      $order_no
      * @param  int|null $item_number
-     * @return
+     * @return data array
      */
     public function printcartontype(Request $request, string $cartontype, int $order_no, int $item_number = null)
     {
@@ -187,9 +187,9 @@ class LabelController extends FrontController
     }
 
     /**
-     * ticket history listing
+     * printed ticket history listing
      * @param  Request $request
-     * @return
+     * @return data array
      */
     public function history(Request $request)
     {
@@ -213,9 +213,9 @@ class LabelController extends FrontController
     }
 
     /**
-     * order search listing
+     * list of cartons for order searched
      * @param  Request $request
-     * @return order list
+     * @return data array of cartons
      */
     public function search(Request $request)
     {

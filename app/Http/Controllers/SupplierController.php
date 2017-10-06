@@ -9,6 +9,11 @@ use GuzzleHttp\Exception\ClientException as Exception;
 
 class SupplierController extends FrontController
 {
+    /**
+     * supplier listing page
+     * @param  Request $request
+     * @return list of suppliers collection
+     */
     public function index(Request $request)
     {
         try {
@@ -30,6 +35,11 @@ class SupplierController extends FrontController
         return view('supplier.list', ['suppliers' => $result['data']])->withTitle('suppliers');
     }
 
+    /**
+     * search for a supplier base don name or id
+     * @param  Request $request
+     * @return collection of suppliers
+     */
     public function search(Request $request)
     {
         try {

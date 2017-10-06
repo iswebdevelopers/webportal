@@ -14,6 +14,11 @@ class FrontController extends Controller
         $this->client = new Client(['base_uri' => config('services.api.url')]);
     }
 
+    /**
+     * getAuthUser - get the currently logged in user
+     * @param  Request $request request object
+     * @return array of user details
+     */
     public function getAuthUser(Request $request)
     {
         $token = $request->session()->get('token');
@@ -57,7 +62,7 @@ class FrontController extends Controller
      * getCreatedTickets - get all the created tickets
      * @param  Request $request
      * @param  string  $type carton-
-     * @return
+     * @return array of created tickets data
      */
     public function getCreatedTickets(Request $request)
     {

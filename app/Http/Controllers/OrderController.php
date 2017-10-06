@@ -9,6 +9,11 @@ use GuzzleHttp\Exception\ClientException as Exception;
 
 class OrderController extends FrontController
 {
+    /**
+     * list of orders to be printed
+     * @param  Request $request
+     * @return data array of orders data
+     */
     public function orderlist(Request $request)
     {
         try {
@@ -33,30 +38,12 @@ class OrderController extends FrontController
         return view('labels.list', ['orders' => $result['data']])->withTitle('label_orders');
     }
 
-    public function search(Request $request)
-    {
-        $token = $request->session()->get('token');
-
-        if ($request->isMethod('post')) {
-            try {
-                $response = $this->client->request('POST', 'order/'.$request->carton_type.'?token='.$token, ['form_params' => ['order_no'=>$request->order_no,'item_number' => $request->item_number]]);
-                
-                if ($response->getstatusCode() == 200) {
-                    $result = json_decode($response->getBody()->getContents(), true);
-                }
-                
-                return view('labels.search', ['orders' => $result['data']])->withTitle('label_carton')->withInput($request->all());
-            } catch (Exception $e) {
-                $error = json_decode((string) $e->getResponse()->getBody(), true);
-                $errors = [$error['data']['message']];
-                
-                return Redirect('portal/label/carton')->withErrors($errors)->withTitle('label_carton')->withInput($request->all());
-            }
-        } else {
-            return view('labels.search')->withTitle('label_carton')->withInput($request->all());
-        }
-    }
-
+    /**
+     * details of the order
+     * @param  Request $request
+     * @param  int     $order_no
+     * @return data array of order details
+     */
     public function orderdetails(Request $request, int $order_no)
     {
         try {
@@ -89,8 +76,8 @@ class OrderController extends FrontController
             $error = json_decode((string) $e->getResponse()->getBody(), true);
             $errors = [$error['data']['message']];
             
-            return view('labels.options', ['orderdetails' => $data,'order_no' => $order_no])->withTitle('label_orders');
+            return view('labels.home', ['orderdetails' => $data,'order_no' => $order_no])->withTitle('label_orders');
         }
-        return view('labels.options', ['orderdetails' => $data,'order_no' => $order_no])->withTitle('label_orders');
+        return view('labels.home', ['orderdetails' => $data,'order_no' => $order_no])->withTitle('label_orders');
     }
 }
