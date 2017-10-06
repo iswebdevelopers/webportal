@@ -42,8 +42,8 @@ class ApiAuthenticate
         } else {
             return redirect('login');
         }
-        $request->session()->put('userid', $result['authuser']['id']);
-        $request->session()->put('username', $result['authuser']['name']);
+        $request->session()->put('user_id', $result['authuser']['id']);
+        
         \View::share('user', $result['authuser']);
         return $next($request);
     }

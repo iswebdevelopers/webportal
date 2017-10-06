@@ -13,7 +13,7 @@ class CreateUserPrintDataTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_label_prints', function (Blueprint $table) {
+        Schema::table('user_label_prints', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('order_id');
             $table->unsignedInteger('user_id');
