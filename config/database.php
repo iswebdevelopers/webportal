@@ -41,7 +41,7 @@ return [
 
         'mysql' => [
             'driver' => 'mysql',
-            'host' => env('DB_HOST', 'localhost'),
+            'host' => env('DB_HOST', 'frbdev-magento.fusionretailbrands.dev.au'),
             'port' => env('DB_PORT', '3306'),
             'database' => env('DB_DATABASE', 'fusion'),
             'username' => env('DB_USERNAME', 'root'),
