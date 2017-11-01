@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\UserLabelPrint;
 use App\UserPrinterSetting;
+use App\Http\Requests;
+use GuzzleHttp\Exception\ClientException as Exception;
 
 class PrintController extends FrontController
 {
@@ -14,10 +16,11 @@ class PrintController extends FrontController
      */
     public function index()
     {
-        $prints = UserLabelPrint::all(['order_id','type','quantity','id']);
+        $prints = UserLabelPrint::Print()->latest()->get(['order_id','type','quantity','id','updated_at']);
+        $archives = UserLabelPrint::Archived()->latest()->get(['order_id','type','quantity','id','updated_at']);
         $setting = UserPrinterSetting::all()->first();
         
-        return view('print.home', ['prints' => $prints,'setting' => $setting])->withTitle('print-shop');
+        return view('print.home', ['prints' => $prints,'archives' => $archives, 'setting' => $setting])->withTitle('print-shop');
     }
 
     /**
@@ -27,9 +30,14 @@ class PrintController extends FrontController
      */
     public function rawdata($id)
     {
-        $data = UserLabelPrint::findOrFail($id, ['raw_data']);
+        $user_label_print = UserLabelPrint::findOrFail($id);
 
-        return json_encode(['data' => $data->raw_data]);
+        if ($user_label_print) {
+            $user_label_print->printed = 1;
+            $user_label_print->save();
+
+            return json_encode(['data' => $user_label_print->raw_data]);
+        }
     }
 
     /**
