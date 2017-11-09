@@ -3,13 +3,13 @@
 @section('content')
 
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-4 col-md-offset-4">
         <h3 class="page-header">
             Password Reset
         </h3>
     </div>    
     @if ( $errors->count() > 0 )
-        <div class="alert alert-danger col-md-4 col-md-offset-4">
+        <div class="alert col-md-4 col-md-offset-4 alert-danger">
             <ul>
                 @foreach( $errors->all() as $message )
                   <li>{{ $message }}</li>
@@ -17,13 +17,13 @@
               </ul> 
         </div>
     @endif
-    @if (!empty($message))
-         <div class="alert col-md-4 col-md-offset-4 {{$status}}">
-             {{$message}}
+    @if (!empty($data['message']))
+         <div class="alert col-md-4 col-md-offset-4 alert-{{$data['status']}}">
+             {{$data['message']}}
          </div>
     @endif
     <!--account settings-->
-    <div class="col-md-6 col-sm-12 col-xs-12">
+    <div class="col-md-4 col-md-offset-4">
         <div class="panel panel-default">
             <div class="panel-heading">
                 Account Settings

@@ -4,7 +4,7 @@ $( function() {
     $("#supplier_box").autocomplete({
       source: function( request, response ) {
         $.ajax({
-          url: "/api/supplier/search/" + request.term + "/?token=" + token,
+          url: "/portal/supplier/search/" + request.term + "/?token=" + token,
           // dataType: "jsonp",
           success: function( data ) {
             response($.map((data.data), function (item) {                                
@@ -24,7 +24,7 @@ $( function() {
       },
       minLength: 3,
       select: function (event, ui) {                    
-        $("#supplier_box").val(ui.item.name);
+        $('#extra-fields input[name=role_id]').val(ui.item.id);
      }     
     });
 
@@ -45,7 +45,9 @@ $( function() {
     
   });
 
+  //initial set up
   $("div", "div#extra-fields").hide();
+  $("#extra-fields input[name=role_id]").prop('disabled',true);
 
   $("select#role").change(function(){
         // hide previously shown in target div
@@ -53,15 +55,31 @@ $( function() {
         
         // read id from your select
         var value = $(this).val();
-        // show rlrment with selected id
+        // show element with selected id
         $("div#"+value).show();
+        $("div#"+value+" input[name=role_id]").prop('disabled',false)
     });
 
+  $('.venbobox').venobox({
+        framewidth: '500px',        
+        frameheight: 'auto',       
+        border: '10px',             
+        titleattr: 'Password Recovery',
+  });
+
+  $("#users-list").DataTable({
+    "sPaginationType": "full_numbers",
+    "bPaginate":true,
+    "iDisplayLength": 10,
+    "searching": true,
+    "ordering": false
+  });
+
   $("#printfiles").DataTable({
-  	"sPaginationType": "full_numbers",
-  	"bPaginate":true,
-  	"iDisplayLength": 10,
-  	"searching": false,
+    "sPaginationType": "full_numbers",
+    "bPaginate":true,
+    "iDisplayLength": 10,
+    "searching": false,
     "ordering": false
   });
 });
