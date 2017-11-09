@@ -37,7 +37,7 @@ class HomeController extends FrontController
             
             return view('dashboard')->withErrors($errors)->withTitle('dashboard');
         }
-        return view('dashboard', ['orders' => $result['data'],'labels' => $order_result['data']])->withTitle('dashboard');
+        return view('dashboard', ['orders' => $result['data'],'labels' => $order_result['data'],'nav' => false])->withTitle('dashboard');
     }
 
     /**
