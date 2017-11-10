@@ -9,17 +9,25 @@
         <h3 class="page-header">
             Print Shop
         </h3>
-    </div>
-    <div class="row-spread">
-    	<div class="col-md-5">
-            @include('print.connection_tab')
-            
-            @include('print.printer_tab')
+        <div class="row-spread">
+        	<div class="col-md-5">
+                @include('print.connection_tab')
+                
+                @include('print.printer_tab')
+            </div>
         </div>
-    </div>
-    
-    @include('print.rawprinting_tab') 
-    @include('print.print_files') 
+        <div class="col-md-6">
+            <ul class="nav nav-pills">
+                <li class="active"><a href="#print" data-toggle="tab">Pending</a></li>
+                <li class=""><a href="#archive" data-toggle="tab">Archived</a></li>
+            </ul>
+            <div class="tab-content">
+                
+                @include('print.print_files')
+                @include('print.print_archived_files')
+            </div>
+        </div>    
+    </div>     
 </div>
 <script type="text/javascript" src="{{ asset('js/printer/main.js')}}"></script>
 @stop

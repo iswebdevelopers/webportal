@@ -150,7 +150,7 @@
         qz.printers.find().then(function(data) {        	
             var list = '';
             for(var i = 0; i < data.length; i++) {
-                list += "<a href='#' class='list-group-item list-group-item-action'>&nbsp; " + data[i] + "</a>";
+                list += "<a href='#' class='list-group-item list-group-item-action'>" + data[i] + "</a>";
             }
             $("#printer-list").append(list);
             $("#printer-list").show();
@@ -176,7 +176,6 @@
     		}
     	});
     }
-
 
     /// Serial ///
     function listSerialPorts() {

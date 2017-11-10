@@ -209,7 +209,7 @@ class LabelController extends FrontController
             return view('labels.history')->withErrors($errors)->withTitle('label_history');
         }
 
-        return view('labels.history', ['labels' => $result['data']])->withTitle('label_history');
+        return view('labels.history', ['labels' => $result['data'],'nav' => true])->withTitle('label_history');
     }
 
     /**

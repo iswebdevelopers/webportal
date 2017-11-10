@@ -237,7 +237,7 @@ margin:0px;
 }
 .top-navbar .navbar-brand {
 color: #fff;
-width: 200px;
+/*width: 200px;*/
 text-align: left;
 height: 60px;
 font-size: 21px;
@@ -370,7 +370,7 @@ border:0px solid black;
     background: #09192A;
 }
 .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
-background-color: #B40101;
+background-color: #1f648b;
 }
 .navbar-default .navbar-toggle {
 border-color: #fff;
@@ -405,6 +405,11 @@ line-height: 1.428571429;
     padding:3px 10px;
 }
 
+.alert-error {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
 /*----------------------------------------------
     MEDIA QUERIES     
 ------------------------------------------------*/
@@ -433,7 +438,7 @@ line-height: 1.428571429;
 
 	.pagination-nav {
 		display:inline-block;
-		float:right;
+		/*float:right;*/
 		margin:10px 0px;
 	}
    
@@ -454,11 +459,11 @@ line-height: 1.428571429;
 
 
  @media(max-width:480px) {
-.page-header small {
-display: block;
-padding-top: 14px;
-font-size: 19px;
-}
+    .page-header small {
+        display: block;
+        padding-top: 14px;
+        font-size: 19px;
+    }
 }
 
 

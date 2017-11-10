@@ -5,6 +5,7 @@
                 Printed Label History
             </div> 
             <div class="panel-body">
+                @if($nav)
             	<nav aria-label="Page navigation" class="pagination-nav">
             		@if(array_key_exists('current_page',$labels))	
 				  		<h4>Page {{$labels['current_page']}} of {{$labels['last_page']}}</h4>
@@ -26,6 +27,7 @@
 					  	</ul>
 				  	@endif
 				</nav>
+                @endif
                 <div class="table-responsive">
                     <table class="table table-striped table-bordered table-hover">
                     <!-- warehouse table is different from other users -->

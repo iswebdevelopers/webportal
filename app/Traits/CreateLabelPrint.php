@@ -13,7 +13,7 @@ trait CreateLabelPrint
         $label_print->user_id = $this->user['id'];
         $label_print->type = $type;
         $label_print->raw_data = $data;
-        $label_print->printed = 1;
+        $label_print->printed = 0;
         $label_print->creator = $this->user['email'];
         $label_print->quantity = array_sum(array_column($label, 'quantity'));
         $label_print->save();

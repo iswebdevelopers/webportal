@@ -35,11 +35,11 @@
                     <input name="token" type="hidden" id="token" value="{{$token}}" />
                     @if($user['roles'] == 'administrator')
                         <div class="form-group">
-                            <label>Role</label>
+                            <label>Role *</label>
                             <select class="form-control" name="role" id="role">
-                            <!--@foreach($roles as $role)
-                                 <option value="$role['name']" <?php //if((empty($input['role'])) ? '' : $input['role'] == "{{$role['name']}}"){echo "selected";}?>></option> 
-                            @endforeach-->
+                            @foreach($roles as $role)
+                                 <option value={{$role}}>{{$role}}</option> 
+                            @endforeach
                             </select>
                         </div>
                     @endif
@@ -56,13 +56,13 @@
                             <input class="form-control" name="password" type="password" required>
                         </div>
                         <div id="extra-fields">
-                            <div class="form-group" id="supplier">
-                                <label>Supplier</label>
-                                <input class="form-control supplier" id="supplier_box" name="supplier" type="text" value="{{(empty($input['supplier'])) ? '' : $input['supplier']}}">
+                            <div class="form-group" id="Supplier">
+                                <label>Supplier *</label>
+                                <input class="form-control supplier" id="supplier_box" name="role_id" type="text">
                             </div>
-                            <div class="form-group" id="warehouse">
-                                <label>Warehouse</label>
-                                <input class="form-control warehouse" id="warehouse_box" name="warehouse" type="text" value="{{(empty($input['warehouse'])) ? '' : $input['warehouse']}}">
+                            <div class="form-group" id="Warehouse">
+                                <label>Warehouse *</label>
+                                <input class="form-control warehouse" id="warehouse_box" name="role_id" type="text">
                             </div>
                             <div class="form-group">
                             <label>Creator</label>

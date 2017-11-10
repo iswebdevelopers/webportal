@@ -3,11 +3,11 @@
 <div class="row">
     <div class="col-md-12">
         <h3 class="page-header">
-            Account Edit - {{ucfirst($user['name'])}}
+            Account Edit - {{ucfirst($users['name'])}}
         </h3>
     </div>    
     <!--account settings-->
-    <div class="col-md-6 col-sm-12 col-xs-12">
+    <div class="col-md-10 col-sm-12 col-xs-12">
    <!--  @if ( $errors->count() > 0 )
                 <div class="alert alert-danger col-md-4 col-md-offset-4">
                     <ul>
@@ -28,7 +28,7 @@
                     <input name="token" type="hidden" id="token" value="{{$token}}" />
                         <div class="form-group">
                             <label>User Email</label>
-                            <input class="form-control" name="email" type="email" value="{{$user['email']}}" placeholder="john.smith@mail.com" required>
+                            <input class="form-control" name="email" type="email" value="{{$users['email']}}" placeholder="john.smith@mail.com" required>
                         </div>
 
                         <!-- <div class="form-group">
@@ -47,4 +47,29 @@
     </div>
     <!--end account settings-->
 </div>
+<script type="text/javascript">
+    $('#recovery-form').bind("submit",function(e) {
+        e.preventDefault();
+        var token = $('#token').val();
+        $.ajax({
+            method: "POST",
+            url: "/portal/user/recovery?token=" + token,
+            data: $(this).serializeArray(),
+        success: function( data ) {
+            if(data.status == 'success'){
+              var html = "<div class='alert alert-success'><ul>";  
+            } else {
+              var html = "<div class='alert alert-danger'><ul>";
+            }
+
+            html = html + "<li>" +  data.result.data.message + "</li></ul></div>" ;
+
+            $(".vbox-content div #page-inner .row .col-md-10").prepend(html);
+          },
+          error: function() { 
+            alert("Something has gone wrong. Please try again."); 
+          }
+        });
+    });
+</script>
 @stop

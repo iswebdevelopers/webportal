@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Setting;
 use Validator;
+use Config;
 use GuzzleHttp\Exception\ClientException as Exception;
 
 class UserController extends FrontController
@@ -19,9 +20,9 @@ class UserController extends FrontController
     {
         try {
             $token = $request->session()->get('token');
-            $page = $request->page ? $request->page : 1;
+            // $page = $request->page ? $request->page : 1;
             
-            $response = $this->client->request('GET', 'users', ['query' => ['token' => $token,'page' => $page]]);
+            $response = $this->client->request('GET', 'users', ['query' => ['token' => $token]]);
                 
             if ($response->getstatusCode() == 200) {
                 $result = json_decode($response->getBody()->getContents(), true);
@@ -35,6 +36,7 @@ class UserController extends FrontController
         return view('user.list', ['users' => $result['data']])->withTitle('users');
     }
 
+
     /**
      * create user
      * @param  Request $request [description]
@@ -43,6 +45,7 @@ class UserController extends FrontController
     public function create(Request $request)
     {
         $token = $request->session()->get('token');
+        $roles = Config::get('user.roles');
 
         if ($request->isMethod('post')) {
             try {
@@ -52,12 +55,14 @@ class UserController extends FrontController
                     $result = json_decode($response->getBody()->getContents(), true);
                 }
                 
-                return view('user.edit', ['message' => 'User has been created','status' => 'success'])->withToken($token)->withTitle('users');
+                return view('user.edit', ['roles' => $roles, 'message' => 'User has been created','status' => 'success'])->withToken($token)->withTitle('users');
             } catch (Exception $e) {
                 $error = json_decode((string) $e->getResponse()->getBody(), true);
-                $errors = [$error['data']['message']];
-                return view('user.edit')->withErrors($errors)->withTitle('users')->withToken($token)->withInput($request->all());
+                $errors = [$error['errors'][0]];
+                return view('user.edit',['roles' => $roles])->withErrors($errors)->withTitle('users')->withToken($token)->withInput($request->all());
             }
+        } else {
+            return view('user.edit',['roles' => $roles])->withToken($token)->withTitle('users');
         }
     }
 
@@ -110,7 +115,7 @@ class UserController extends FrontController
                 return view('user.recovery')->withErrors($errors)->withTitle('setting')->withToken($token)->withInput($request->all());
             }
         }
-        return view('user.recovery', ['users' => $result['data']])->withToken($token)->withTitle('setting');
+        return view('user.recovery', ['users' => $result['data'][0]])->withToken($token)->withTitle('setting');
     }
 
     /**
@@ -162,7 +167,7 @@ class UserController extends FrontController
                 
                 return view('user.reset', ['token' => $request->token])->withErrors($errors)->withInput($request->all());
             }
-            return view('user.reset', ['token' => $request->token,'message' => 'Password reset successfull','status'=>'success']);
+            return view('user.reset', ['token' => $request->token,'data' => $result['data']]);
         } else {
             return view('user.reset', ['token' => $token]);
         }
