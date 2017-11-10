@@ -177,7 +177,6 @@
     	});
     }
 
-
     /// Serial ///
     function listSerialPorts() {
         qz.serial.findPorts().then(function(data) {

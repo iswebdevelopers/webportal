@@ -56,12 +56,12 @@ Route::group(['prefix' => 'portal','middleware' => 'api'], function () {
     Route::get('/user/logout', 'UserController@logout');
 
     Route::get('/suppliers', 'SupplierController@index');
-    Route::post('/suppliers/search', 'SupplierController@search');
+    Route::get('/supplier/search/{term?}', 'SupplierController@search');
 });
 
 Route::post('login', 'AuthenticateController@login');
 Route::get('login', 'AuthenticateController@login');
 
-Route::get('reset_password/{token}', 'UserController@reset')->name('password.reset');
+Route::get('reset_password/{token}', 'UserController@reset');
 Route::post('reset_password/{token}', 'UserController@reset');
 //Route::get('portal/print-shop', 'PrintController@index');

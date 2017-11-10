@@ -32,6 +32,9 @@
     <!--supplier List-->                
     <div class="col-md-10 col-sm-12 col-xs-12">
         <div class="panel panel-default">
+             <div class="panel-heading">
+                Suppliers 
+            </div>
             <div class="panel-body">
             	<nav aria-label="Page navigation" class="pagination-nav">
             		@if(array_key_exists('current_page',$suppliers))
@@ -76,7 +79,6 @@
                                     </td>
                                     <td>{{$supplier['contact']}}</td>
                                     <td>{{$supplier['phone']}}</td>
-                                    <!-- <td><a id="recovery" data-fancybox data-type="ajax" data-src="/portal/user/recovery/{{$supplier['id']}}" href="javascript:;">Recover Password</a></td> -->
                                 </tr>
                             @endforeach
                         </tbody>

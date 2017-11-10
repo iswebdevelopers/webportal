@@ -36,16 +36,16 @@ class SupplierController extends FrontController
     }
 
     /**
-     * search for a supplier base don name or id
+     * search for a supplier based on name or id
      * @param  Request $request
      * @return collection of suppliers
      */
-    public function search(Request $request)
+    public function search(Request $request, $term)
     {
         try {
             $token = $request->session()->get('token');
             
-            $response = $this->client->request('GET', 'supplier/search/'.$request->term, ['query' => ['token' => $token]]);
+            $response = $this->client->request('GET', 'supplier/search/'.$term, ['query' => ['token' => $token]]);
                 
             if ($response->getstatusCode() == 200) {
                 $result = json_decode($response->getBody()->getContents(), true);
@@ -53,9 +53,8 @@ class SupplierController extends FrontController
         } catch (Exception $e) {
             $error = json_decode((string) $e->getResponse()->getBody(), true);
             $errors = [$error['data']['message']];
-            
-            return view('supplier.list')->withErrors($errors)->withTitle('suppliers');
+            $result = $errors;
         }
-        return view('supplier.list', ['suppliers' => $result])->withTitle('suppliers');
+        return $result;
     }
 }

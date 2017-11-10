@@ -7,39 +7,39 @@
             Search
         </h3>
     </div>
-    <?php //dd($input);?>
+
     <!-- search panel -->
     <div class="col-md-12 col-sm-12 col-xs-12">
     	<div class="panel panel-default">
-    	<div class="panel-body">
-			<form action="{{ action('LabelController@search') }}" method="post" class="form-inline">
-				<input name="_token" type="hidden" value="{{ csrf_token() }}"/>
-				<div class="form-group">
-	                <label>Order ID</label>
-	                <input name="order_no" class="form-control" type="number" value="{{ (empty($input['order_no'])) ? '' : $input['order_no']}}" >
-				</div>
-				<div class="form-group">	
-					<label>Item Number</label>
-	                <input name="item_number" class="form-control" type="number" value="{{ (empty($input['item_number'])) ? '' : $input['item_number'] }}">
-	            </div>
-	            <div class="form-group">
-	            	<label>Carton Type</label>
-	            	<select class="form-control" name="carton_type">
-	                    <option value="cartonpack" <?php if ((empty($input['carton_type'])) ? '' : $input['carton_type'] == 'cartonpack') {
-    echo "selected";
-}?>>Pack</option>
-	                    <option value="cartonloose" <?php if ((empty($input['carton_type'])) ? '' : $input['carton_type'] == 'cartonloose') {
-    echo "selected";
-}?>>Loose</option>
-	                </select>
-	            </div>
-	            <button type="submit" class="btn btn-primary">Submit</button>
-			</form>
-		</div>
+        	<div class="panel-body">
+    			<form action="{{ action('LabelController@search') }}" method="post" class="form-inline">
+    				<input name="_token" type="hidden" value="{{ csrf_token() }}"/>
+    				<div class="form-group">
+    	                <label>Order ID</label>
+    	                <input name="order_no" class="form-control" type="number" value="{{ (empty($input['order_no'])) ? '' : $input['order_no']}}" >
+    				</div>
+    				<div class="form-group">	
+    					<label>Item Number</label>
+    	                <input name="item_number" class="form-control" type="number" value="{{ (empty($input['item_number'])) ? '' : $input['item_number'] }}">
+    	            </div>
+    	            <div class="form-group">
+    	            	<label>Carton Type</label>
+    	            	<select class="form-control" name="carton_type">
+    	                    <option value="cartonpack" <?php if ((empty($input['carton_type'])) ? '' : $input['carton_type'] == 'cartonpack') {
+        echo "selected";
+    }?>>Pack</option>
+    	                    <option value="cartonloose" <?php if ((empty($input['carton_type'])) ? '' : $input['carton_type'] == 'cartonloose') {
+        echo "selected";
+    }?>>Loose</option>
+    	                </select>
+    	            </div>
+    	            <button type="submit" class="btn btn-primary">Submit</button>
+    			</form>
+    		</div>
 		</div>			
     </div>
     <!-- end search panel -->
-    </div>
+
     <!-- list -->
     @if ( $errors->count() > 0 )
         <div class="alert alert-danger col-md-12">
